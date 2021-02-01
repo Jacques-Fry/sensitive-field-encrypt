@@ -56,7 +56,7 @@ public class User implements Serializable {
 @Slf4j
 public class SensitiveFieldAspect {
 
-    请在这里将切入点修改为你的配置↓↓↓↓↓↓↓↓↓
+    请在这里将切入点修改为你的配置↓↓↓↓↓↓↓↓↓↓
     @Around(value ="execution(* com.*.*.dao.*..*(..))")
     public Object doProcess(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     }
