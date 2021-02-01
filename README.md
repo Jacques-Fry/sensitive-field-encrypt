@@ -1,6 +1,8 @@
 # 字段加密功能示例说明
 
-切面切入点定向指定数据库操作层例如: **Mybatis**的Mapper、**JPA**的repository。
+本功能可接入任意springboot项目使用，接入后无需关心加解密逻辑，添加注解即可实现保存到数据库前自动加密数据，从数据库查询返回数据时自动解密。
+
+切面切入点定向指定数据库操作层例如: **Mybatis**的mapper、**JPA**的repository。
 
 本功能将默认使用可逆加密算法AES进行加解密，当然各位需要不同的算法可执行修改AOP切入处的加密和解密执行逻辑。
 
@@ -12,7 +14,7 @@
 >
 > 如果实体类上没有添加 @SensitiveEntity 注解将不会对此实体类进行加密扫描，也就是说没有添加 @SensitiveEntity 注解的话，那么 @SensitiveField 是无效的。
 
-实体类添加注解的示例: 
+实体类添加注解的示例：
 
 ```java
 /**
@@ -62,5 +64,15 @@ public class SensitiveFieldAspect {
 ```
 
 需了解@Around注解的细节请访问 https://blog.csdn.net/sifanlook/article/details/88905217
+
+
+
+数据库加密结果：
+
+![image-20210201170621742](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210201170621742.png)
+
+接口访问结果：
+
+![image-20210201170654703](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210201170654703.png)
 
 其他细节请下载此示例去了解

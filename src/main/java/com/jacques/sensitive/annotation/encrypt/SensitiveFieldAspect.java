@@ -31,20 +31,41 @@ public class SensitiveFieldAspect {
      */
     @Around(value = "execution(* com.*.*.dao.*..*(..))")
     public Object doProcess(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+
         // 捕获方法参数列表
         List<Object> methodArgs = this.getMethodArgs(proceedingJoinPoint);
-        // 循环所有参数项
         log.info("开始加密");
+        // 循环所有参数项
         for (Object item : methodArgs) {
             // 对参数项进行敏感字段加密处理
-            AESUtil.handleItem(item, AESUtil.KEY, true);
+            // 如果是列表数据
+            if (item instanceof List) {
+                for (Object data : (List) item) {
+                    encode(data);
+                }
+            }
+            // 如果是单数据
+            else {
+                encode(item);
+            }
         }
+
         Object result = proceedingJoinPoint.proceed();
         log.info("开始解密");
         // 对返回值进行敏感字段解密处理
-        AESUtil.handleItem(result, AESUtil.KEY, false);
+        // 如果是列表数据
+        if (result instanceof List) {
+            for (Object data : (List) result) {
+                decode(data);
+            }
+        }
+        // 如果是单数据
+        else {
+            decode(result);
+        }
         return result;
     }
+
 
     /**
      * 获取方法的请求参数
@@ -63,4 +84,35 @@ public class SensitiveFieldAspect {
         }
         return methodArgs;
     }
+
+    /**
+     * 加密
+     *
+     * @author Jacques·Fry
+     * @since 2021/02/01 16:58
+     */
+    public void encode(Object data) {
+        log.info("入参类型: " + data.getClass().getName());
+        try {
+            AESUtil.processOne(data, AESUtil.KEY, true);
+        } catch (IllegalAccessException e) {
+            log.info("加密失败");
+        }
+    }
+
+    /**
+     * 解密
+     *
+     * @author Jacques·Fry
+     * @since 2021/02/01 16:58
+     */
+    public void decode(Object data) {
+        log.info("入参类型: " + data.getClass().getName());
+        try {
+            AESUtil.processOne(data, AESUtil.KEY, false);
+        } catch (IllegalAccessException e) {
+            log.info("解密失败");
+        }
+    }
+
 }

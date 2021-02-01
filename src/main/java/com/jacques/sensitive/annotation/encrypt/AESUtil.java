@@ -130,23 +130,8 @@ public class AESUtil {
         return result;
     }
 
-    /** 进行敏感字段解密/加密处理 */
-    public static void handleItem(Object data, String secretKey, boolean isEncrypted)
-            throws IllegalAccessException {
-
-        log.info("入参类型: " + data.getClass().getName());
-
-        if (data instanceof List) {
-            for (Object item : (List) data) {
-                processOne(item, secretKey, isEncrypted);
-            }
-        } else {
-            processOne(data, secretKey, isEncrypted);
-        }
-    }
-
     /**
-     * 处理一个
+     * 处理一个加密/解密请求
      *
      * @author Jacques·Fry
      * @since 2021/02/01 13:27
@@ -154,8 +139,7 @@ public class AESUtil {
      * @param secretKey 密钥
      * @param isEncrypted 加密/解密
      */
-    private static void processOne(Object data, String secretKey, boolean isEncrypted)
-            throws IllegalAccessException {
+    public static void processOne(Object data, String secretKey, boolean isEncrypted) throws IllegalAccessException {
 
         // 排除实体类不带 @SensitiveEntity 注解
         if (null == AnnotationUtils.findAnnotation(data.getClass(), SensitiveEntity.class)) {
