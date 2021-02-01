@@ -24,11 +24,12 @@ public class SensitiveFieldAspect {
     /**
      * 切入数据操作层进行加密解密
      *
-     * @author Jacques·Fry
-     * @since 2021/02/01 15:32
      * @param proceedingJoinPoint 进行连接点
      * @return {@link Object }
-     */@Around(value ="execution(* com.*.*.dao.*..*(..))")
+     * @author Jacques·Fry
+     * @since 2021/02/01 15:32
+     */
+    @Around(value = "execution(* com.*.*.dao.*..*(..))")
     public Object doProcess(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         // 捕获方法参数列表
         List<Object> methodArgs = this.getMethodArgs(proceedingJoinPoint);
@@ -48,10 +49,10 @@ public class SensitiveFieldAspect {
     /**
      * 获取方法的请求参数
      *
-     * @author Jacques·Fry
-     * @since 2021/02/01 13:41
      * @param proceedingJoinPoint 进行连接点
      * @return {@link List<Object> }
+     * @author Jacques·Fry
+     * @since 2021/02/01 13:41
      */
     private List<Object> getMethodArgs(ProceedingJoinPoint proceedingJoinPoint) {
         List<Object> methodArgs = Lists.newArrayList();

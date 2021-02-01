@@ -21,8 +21,17 @@ import java.util.List;
  */
 @Slf4j
 public class AESUtil {
+    /**
+     * 密钥
+     */
     public static final String KEY = "jacques";
+    /**
+     * 默认字符集
+     */
     private static final String DEFAULT_CHARSET = "UTF-8";
+    /**
+     * 加密位数
+     */
     private static final int KEY_SIZE_AES = 128;
 
     /**
