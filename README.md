@@ -6,7 +6,7 @@
 
 本功能将默认使用可逆加密算法AES进行加解密，当然各位需要不同的算法可执行修改AOP切入处的加密和解密执行逻辑。
 
-> 主要的业务逻辑代码在 [com.jacques.sensitive.annotation.encrypt](/src/master/src/main/java/com/jacques/sensitive/annotation/encrypt) 包下
+> 主要的业务逻辑代码在 [com.jacques.sensitive.annotation.encrypt](/src/main/java/com/jacques/sensitive/annotation/encrypt) 包下
 >
 > @SensitiveEntity 添加在实体类上标注此实体类会进行字段的加密扫描。
 >
