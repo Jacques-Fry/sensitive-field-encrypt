@@ -69,10 +69,10 @@ public class SensitiveFieldAspect {
 
 数据库加密结果：
 
-![image-20210201170621742](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210201170621742.png)
+![image1](img/img1.png)
 
 接口访问结果：
 
-![image-20210201170654703](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210201170654703.png)
+![image2](img/img2.png)
 
 其他细节请下载此示例去了解
