@@ -1,10 +1,12 @@
 package com.jacques.sensitive.annotation.encrypt;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -54,13 +56,23 @@ public class SensitiveFieldAspect {
         log.info("开始解密");
         // 对返回值进行敏感字段解密处理
         // 如果是列表数据
+        List<?> resultList = null;
         if (result instanceof List) {
-            for (Object data : (List) result) {
-                decode(data);
-            }
+            // 普通列表
+            resultList = (List<?>) result;
+        } else if (result instanceof Page) {
+            // JPA分页
+            resultList = ((Page<?>) result).getContent();
+        } else if (result instanceof IPage) {
+            // mybatis-plus 分页
+            resultList = ((IPage<?>) result).getRecords();
         }
-        // 如果是单数据
-        else {
+        if (resultList != null) {
+            for (Object item : resultList) {
+                decode(item);
+            }
+        } else {
+            // 如果是单数据
             decode(result);
         }
         return result;

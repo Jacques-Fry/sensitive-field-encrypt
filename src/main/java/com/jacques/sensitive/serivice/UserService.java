@@ -2,6 +2,8 @@ package com.jacques.sensitive.serivice;
 
 
 import com.jacques.sensitive.pojo.User;
+import com.jacques.sensitive.pojo.where.WhereUser;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -42,4 +44,14 @@ public interface UserService {
      * @since 2021/02/01 16:17
      */
     List<User> findAll();
+
+    /**
+     * 分页查询用户
+     *
+     * @param where 查询条件
+     * @return {@link Page<User> }
+     * @author Jacques·Fry
+     * @since 2021/02/03 13:38
+     */
+    Page<User> queryUser(WhereUser where);
 }

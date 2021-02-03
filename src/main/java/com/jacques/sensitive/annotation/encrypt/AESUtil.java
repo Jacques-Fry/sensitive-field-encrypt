@@ -141,7 +141,7 @@ public class AESUtil {
      */
     public static void processOne(Object data, String secretKey, boolean isEncrypted) throws IllegalAccessException {
 
-        // 排除实体类不带 @SensitiveEntity 注解
+        // 排除不带 @SensitiveEntity 注解的实体类
         if (null == AnnotationUtils.findAnnotation(data.getClass(), SensitiveEntity.class)) {
             return;
         }

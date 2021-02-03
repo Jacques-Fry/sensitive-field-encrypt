@@ -19,6 +19,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -46,7 +47,13 @@ public class SwaggerConfig {
 
     @PostConstruct
     public void printText(){
-        System.out.println("\nSwagger访问路径: http://localhost:"+serverPort+contextPath+"/swagger-ui.html\n");
+        String swaggerUrl="http://localhost:"+serverPort+contextPath+"/swagger-ui.html";
+        System.out.println("\nSwagger访问路径: "+swaggerUrl+"\n");
+        try {
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + swaggerUrl);
+        } catch (IOException e) {
+            log.error("打开swagger失败",e);
+        }
     }
 
     /**
