@@ -2,13 +2,13 @@
 
 本功能可接入任意springboot项目使用，接入后无需关心加解密逻辑，添加注解即可实现保存到数据库前自动加密数据，从数据库查询返回数据时自动解密。
 
-本功能将默认使用可逆加密算法AES进行加解密，当然各位需要不同的算法可修改[AOP切入处](/sensitive-field-encrypt-core/src/main/java/com/jacques/sensitive/core/aspect/SensitiveFieldAspect.java)的加密和解密执行逻辑。
+本功能将默认使用可逆加密算法AES进行加解密，当然各位需要不同的算法可修改[AOP切入处](/sensitive-field-encrypt-core/src/main/java/com/huihe/sensitive/core/aspect/SensitiveFieldAspect.java)的加密和解密执行逻辑。
 
 目前该功能支持针对 JPA 和 Mybatis-Plus 的分页返回数据解密。
 
 demo示例分别展示了项目在接入 JPA 和  Mybatis-Plus 时的方案。
 
-> 主要的业务逻辑代码在 [com.jacques.sensitive.core](/sensitive-field-encrypt-core/src/main/java/com/jacques/sensitive/core) 包下
+> 主要的业务逻辑代码在 [com.huihe.sensitive.core](/sensitive-field-encrypt-core/src/main/java/com/huihe/sensitive/core) 包下
 >
 > @SensitiveEntity 添加在实体类上标注此实体类会进行字段的加密扫描。
 >
