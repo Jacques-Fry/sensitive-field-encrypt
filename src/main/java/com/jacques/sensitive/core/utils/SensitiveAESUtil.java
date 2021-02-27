@@ -1,5 +1,7 @@
-package com.jacques.sensitive.annotation.encrypt;
+package com.jacques.sensitive.core.utils;
 
+import com.jacques.sensitive.core.annotation.SensitiveEntity;
+import com.jacques.sensitive.core.annotation.SensitiveField;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -10,7 +12,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.lang.reflect.Field;
 import java.security.SecureRandom;
-import java.util.List;
 
 /**
  * 加密工具类
@@ -20,11 +21,13 @@ import java.util.List;
  * @since 2021/02/01 10:55
  */
 @Slf4j
-public class AESUtil {
+public class SensitiveAESUtil {
+
+
     /**
      * 密钥
      */
-    public static final String KEY = "jacques";
+    public static final String KEY = "EAA9471CB6BDAFEE1040589F6E0B4CFD";
     /**
      * 默认字符集
      */
@@ -55,7 +58,7 @@ public class AESUtil {
     }
 
     /**
-     * 加密处理
+     * 加解密处理
      *
      * @author Jacques·Fry
      * @since 2021/02/01 10:38
@@ -68,14 +71,14 @@ public class AESUtil {
         try {
             KeyGenerator kg = KeyGenerator.getInstance("AES");
             byte[] keyBytes;
-            if (AESUtil.KEY_SIZE_AES == 0) {
+            if (SensitiveAESUtil.KEY_SIZE_AES == 0) {
                 keyBytes = DEFAULT_CHARSET == null ? key.getBytes() : key.getBytes(DEFAULT_CHARSET);
                 kg.init(new SecureRandom(keyBytes));
             } else if (key == null) {
-                kg.init(AESUtil.KEY_SIZE_AES);
+                kg.init(SensitiveAESUtil.KEY_SIZE_AES);
             } else {
                 keyBytes = key.getBytes(DEFAULT_CHARSET);
-                kg.init(AESUtil.KEY_SIZE_AES, new SecureRandom(keyBytes));
+                kg.init(SensitiveAESUtil.KEY_SIZE_AES, new SecureRandom(keyBytes));
             }
 
             SecretKey sk = kg.generateKey();
@@ -87,11 +90,11 @@ public class AESUtil {
                 return parseByte2HexStr(cipher.doFinal(resBytes));
             } else {
                 cipher.init(2, sks);
-                return new String(cipher.doFinal(parseHexStr2Byte(data)));
+                String result = new String(cipher.doFinal(parseHexStr2Byte(data)));
+                return StringUtils.isBlank(result)?data:result;
             }
         } catch (Exception var10) {
-            var10.printStackTrace();
-            return null;
+            return data;
         }
     }
 
@@ -180,13 +183,21 @@ public class AESUtil {
      */
     private static void handleField(Object item, Field field, String secretKey, boolean isEncrypted)
             throws IllegalAccessException {
+
         if (null == item) {
             return;
         }
-        if (isEncrypted) {
-            field.set(item, aesEncode((String) field.get(item), secretKey));
-        } else {
-            field.set(item, aesDeCode((String) field.get(item), secretKey));
+        String dataStr=(String) field.get(item);
+        if(StringUtils.isBlank(dataStr)){
+            return;
         }
+        String value ;
+        if (isEncrypted) {
+             value = aesEncode(dataStr, secretKey);
+        } else {
+             value = aesDeCode(dataStr, secretKey);
+        }
+        field.set(item, value);
+
     }
 }

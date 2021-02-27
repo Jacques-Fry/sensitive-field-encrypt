@@ -1,7 +1,8 @@
-package com.jacques.sensitive.annotation.encrypt;
+package com.jacques.sensitive.core.aspect;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Lists;
+import com.jacques.sensitive.core.utils.SensitiveAESUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -36,9 +37,13 @@ public class SensitiveFieldAspect {
 
         // 捕获方法参数列表
         List<Object> methodArgs = this.getMethodArgs(proceedingJoinPoint);
-        log.info("开始加密");
+        /// log.info("开始加密");
         // 循环所有参数项
         for (Object item : methodArgs) {
+
+            if(item==null){
+                continue;
+            }
             // 对参数项进行敏感字段加密处理
             // 如果是列表数据
             if (item instanceof List) {
@@ -53,7 +58,12 @@ public class SensitiveFieldAspect {
         }
 
         Object result = proceedingJoinPoint.proceed();
-        log.info("开始解密");
+
+        if(result==null){
+            return result;
+        }
+
+        /// log.info("开始解密");
         // 对返回值进行敏感字段解密处理
         // 如果是列表数据
         List<?> resultList = null;
@@ -104,9 +114,9 @@ public class SensitiveFieldAspect {
      * @since 2021/02/01 16:58
      */
     public void encode(Object data) {
-        log.info("入参类型: " + data.getClass().getName());
+        /// log.info("入参类型: " + data.getClass().getName());
         try {
-            AESUtil.processOne(data, AESUtil.KEY, true);
+            SensitiveAESUtil.processOne(data, SensitiveAESUtil.KEY, true);
         } catch (IllegalAccessException e) {
             log.info("加密失败");
         }
@@ -119,12 +129,13 @@ public class SensitiveFieldAspect {
      * @since 2021/02/01 16:58
      */
     public void decode(Object data) {
-        log.info("入参类型: " + data.getClass().getName());
+        /// log.info("入参类型: " + data.getClass().getName());
         try {
-            AESUtil.processOne(data, AESUtil.KEY, false);
+            SensitiveAESUtil.processOne(data, SensitiveAESUtil.KEY, false);
         } catch (IllegalAccessException e) {
             log.info("解密失败");
         }
     }
+
 
 }

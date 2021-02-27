@@ -1,4 +1,4 @@
-package com.jacques.sensitive.annotation.encrypt;
+package com.jacques.sensitive.core.annotation;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

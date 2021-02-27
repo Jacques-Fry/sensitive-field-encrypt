@@ -1,7 +1,7 @@
 package com.jacques.sensitive.pojo;
 
-import com.jacques.sensitive.annotation.encrypt.SensitiveEntity;
-import com.jacques.sensitive.annotation.encrypt.SensitiveField;
+import com.jacques.sensitive.core.annotation.SensitiveEntity;
+import com.jacques.sensitive.core.annotation.SensitiveField;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 
