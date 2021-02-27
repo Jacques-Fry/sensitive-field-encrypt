@@ -1,0 +1,22 @@
+server:
+  port: 18001
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/sensitive?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: false
+
+# mybatis-plus的配置
+mybatis-plus:
+  configuration-properties:
+    # 实体类扫描路径
+    type-aliases-package: com.jacques.sensitive.pojo
+    # mapper.xml文件扫描路径
+    mapper-locations: classpath:mapper/*.xml
+
