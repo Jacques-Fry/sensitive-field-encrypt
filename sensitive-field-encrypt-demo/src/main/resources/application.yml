@@ -20,3 +20,6 @@ mybatis-plus:
     # mapper.xml文件扫描路径
     mapper-locations: classpath:mapper/*.xml
 
+# 加解密设置
+sensitive:
+  key: EAA9471CB6BDAFEE1040589F6E0B4CFD

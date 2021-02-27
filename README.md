@@ -18,6 +18,14 @@ demo示例分别展示了项目在接入 JPA 和  Mybatis-Plus 时的方案。
 > 
 > 如果实体类上没有添加 @SensitiveEntity 注解将不会对此实体类进行加密扫描，也就是说没有添加 @SensitiveEntity 注解的话，那么 @SensitiveField 是无效的。
 
+application配置说明:
+
+```yaml
+# 加解密设置
+sensitive:
+  key: 你需要的密钥
+```
+
 实体类添加注解的示例：
 
 ```java
@@ -95,5 +103,8 @@ public interface UserMapper extends BaseMapper<User> {
 接口访问结果：
 
 ![image2](img/img2.png)
+
+解密性能测试
+![image3](img/img3.png)
 
 需了解更多细节详情请下载此示例。
