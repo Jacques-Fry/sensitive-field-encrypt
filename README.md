@@ -16,9 +16,14 @@ demo示例分别展示了项目在接入 JPA 和  Mybatis-Plus 时的方案。
 >
 > @Sensitive 添加到数据访问Dao层，例如：UserMapper、UserRepository，标注针对此接口的方法进行加解密操作。
 >
+
+> 请注意：
+>
 > 如果实体类上没有添加 @SensitiveEntity 注解将不会对此实体类进行加密扫描，也就是说没有添加 @SensitiveEntity 注解的话，那么 @SensitiveField 是无效的。
 >
-> 注意：若数据访问Dao层使用了 JPA 或  Mybatis-Plus 的默认方法，要记得接口重写父类方法（如下列数据访问添加示例所示），否则无法扫描到执行的默认方法。
+> 若数据访问Dao层使用了 JPA 或  Mybatis-Plus 的默认方法，要记得接口重写父类方法（如下列数据访问添加示例所示），否则无法扫描到执行的默认方法。
+
+
 
 application配置说明:
 
