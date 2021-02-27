@@ -26,8 +26,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Override
     Page<User> findAll(Pageable pageable);
 
-    @Override
-    User save(User user);
 
     @Override
     List<User> findAll();
@@ -42,16 +40,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     <S extends User> List<S> saveAll(Iterable<S> iterable);
 
     @Override
-    void flush();
-
-    @Override
     <S extends User> S saveAndFlush(S s);
-
-    @Override
-    void deleteInBatch(Iterable<User> iterable);
-
-    @Override
-    void deleteAllInBatch();
 
     @Override
     User getOne(Integer integer);
@@ -66,32 +55,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findById(Integer integer);
 
     @Override
-    boolean existsById(Integer integer);
-
-    @Override
-    long count();
-
-    @Override
-    void deleteById(Integer integer);
-
-    @Override
-    void delete(User user);
-
-    @Override
-    void deleteAll(Iterable<? extends User> iterable);
-
-    @Override
-    void deleteAll();
-
-    @Override
     <S extends User> Optional<S> findOne(Example<S> example);
 
     @Override
     <S extends User> Page<S> findAll(Example<S> example, Pageable pageable);
-
-    @Override
-    <S extends User> long count(Example<S> example);
-
-    @Override
-    <S extends User> boolean exists(Example<S> example);
 }
