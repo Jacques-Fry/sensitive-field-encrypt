@@ -7,7 +7,7 @@
     <groupId>com.huihe</groupId>
     <artifactId>sensitive-field-encrypt-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <modules>
         <module>sensitive-field-encrypt-demo</module>
         <module>sensitive-field-encrypt-core</module>

@@ -10,6 +10,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 /**
@@ -158,7 +159,7 @@ public class SensitiveAesUtil {
                 return parseByte2HexStr(cipher.doFinal(resBytes));
             } else {
                 cipher.init(Cipher.DECRYPT_MODE, sk, secureRandom);
-                return new String(cipher.doFinal(parseHexStr2Byte(data)));
+                return new String(cipher.doFinal(parseHexStr2Byte(data)), StandardCharsets.UTF_8);
             }
         } catch (Exception var10) {
             return data;

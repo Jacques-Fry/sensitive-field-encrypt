@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sensitive-field-encrypt-parent</artifactId>
         <groupId>com.huihe</groupId>
-        <version>1.0.0</version>
+        <version>1.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -30,11 +30,11 @@
 
     <dependencies>
 
-        <!--字段加解密-->
+        <!--字段加解密v1.0.2 处理了linux系统AES加解密失败以及解密乱码的问题-->
         <dependency>
             <groupId>com.huihe</groupId>
             <artifactId>sensitive-field-encrypt</artifactId>
-            <version>1.0.0.DEVELOPMENT</version>
+            <version>1.0.2.DEVELOPMENT</version>
         </dependency>
 
         <!--web-->

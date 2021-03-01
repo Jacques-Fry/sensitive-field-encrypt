@@ -6,7 +6,7 @@
 
     <groupId>com.huihe</groupId>
     <artifactId>sensitive-field-encrypt</artifactId>
-    <version>1.0.0.DEVELOPMENT</version>
+    <version>1.0.2.DEVELOPMENT</version>
     <name>core</name>
 
     <properties>
