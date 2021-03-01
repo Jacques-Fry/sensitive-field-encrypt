@@ -135,28 +135,30 @@ public class SensitiveAesUtil {
     private static String keyGeneratorEs(String data, String key, boolean isEncode) {
         try {
             KeyGenerator kg = KeyGenerator.getInstance("AES");
+            // 加密种子
+            SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
             byte[] keyBytes;
-            if (SensitiveAesUtil.KEY_SIZE_AES == 0) {
+            if (KEY_SIZE_AES == 0) {
                 keyBytes = DEFAULT_CHARSET == null ? key.getBytes() : key.getBytes(DEFAULT_CHARSET);
-                kg.init(new SecureRandom(keyBytes));
+                secureRandom.setSeed(keyBytes);
+                kg.init(secureRandom);
             } else if (key == null) {
-                kg.init(SensitiveAesUtil.KEY_SIZE_AES);
+                kg.init(KEY_SIZE_AES);
             } else {
                 keyBytes = key.getBytes(DEFAULT_CHARSET);
-                kg.init(SensitiveAesUtil.KEY_SIZE_AES, new SecureRandom(keyBytes));
+                secureRandom.setSeed(keyBytes);
+                kg.init(KEY_SIZE_AES, secureRandom);
             }
 
             SecretKey sk = kg.generateKey();
-            SecretKeySpec sks = new SecretKeySpec(sk.getEncoded(), "AES");
             Cipher cipher = Cipher.getInstance("AES");
             if (isEncode) {
-                cipher.init(1, sks);
+                cipher.init(Cipher.ENCRYPT_MODE, sk, secureRandom);
                 byte[] resBytes = data.getBytes(DEFAULT_CHARSET);
                 return parseByte2HexStr(cipher.doFinal(resBytes));
             } else {
-                cipher.init(2, sks);
-                String result = new String(cipher.doFinal(parseHexStr2Byte(data)));
-                return StringUtils.isBlank(result) ? data : result;
+                cipher.init(Cipher.DECRYPT_MODE, sk, secureRandom);
+                return new String(cipher.doFinal(parseHexStr2Byte(data)));
             }
         } catch (Exception var10) {
             return data;
