@@ -5,7 +5,7 @@
     <parent>
         <artifactId>sensitive-field-encrypt-parent</artifactId>
         <groupId>com.huihe</groupId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.huihe</groupId>
             <artifactId>sensitive-field-encrypt</artifactId>
-            <version>1.0.2.DEVELOPMENT</version>
+            <version>1.0.3.RELEASE</version>
         </dependency>
 
         <!--web-->
@@ -126,4 +126,13 @@
         </dependency>
 
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>maven-releases</id>
+            <name>HUIHE maven releases</name>
+            <!-- 此为仓库地址 -->
+            <url>http://121.196.183.165:28081/repository/maven-public/</url>
+        </repository>
+    </repositories>
 </project>

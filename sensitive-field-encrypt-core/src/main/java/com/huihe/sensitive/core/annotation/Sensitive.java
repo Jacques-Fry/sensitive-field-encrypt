@@ -7,7 +7,7 @@ import org.springframework.core.annotation.Order;
 import java.lang.annotation.*;
 
 /**
- * SensitiveScan
+ * 功能扫描注释
  *
  * @author Jacques·Fry
  * @version 1.0.0

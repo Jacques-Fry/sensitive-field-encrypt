@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,18 @@ public class SensitiveFieldAspect {
     @Value("${sensitive.key}")
     public String key;
 
+    @PostConstruct
+    public void print(){
+        log.info("\n\n" +
+                "███████╗███████╗███╗   ██╗███████╗██╗████████╗██╗██╗   ██╗███████╗\n" +
+                "██╔════╝██╔════╝████╗  ██║██╔════╝██║╚══██╔══╝██║██║   ██║██╔════╝\n" +
+                "███████╗█████╗  ██╔██╗ ██║███████╗██║   ██║   ██║██║   ██║█████╗  \n" +
+                "╚════██║██╔══╝  ██║╚██╗██║╚════██║██║   ██║   ██║╚██╗ ██╔╝██╔══╝  \n" +
+                "███████║███████╗██║ ╚████║███████║██║   ██║   ██║ ╚████╔╝ ███████╗\n" +
+                "╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝   ╚═╝   ╚═╝  ╚═══╝  ╚══════╝" +
+                "\n");
+    }
+
     /**
      * 切入数据操作层进行加密解密
      *
@@ -45,7 +58,7 @@ public class SensitiveFieldAspect {
 
         // 捕获方法参数列表
         List<Object> methodArgs = this.getMethodArgs(proceedingJoinPoint);
-        log.info("开始加密");
+        // log.info("开始加密");
 
         // 循环所有参数项
         for (Object item : methodArgs) {
@@ -72,11 +85,11 @@ public class SensitiveFieldAspect {
             return result;
         }
 
-        log.info("开始解密");
+        // log.info("开始解密");
 
         // 对返回值进行敏感字段解密处理
         // 如果是列表数据
-        List<?> resultList = new ArrayList<>();
+        List<?> resultList = null;
         if (result instanceof List) {
             // 普通列表
             resultList = (List<?>) result;
@@ -88,7 +101,7 @@ public class SensitiveFieldAspect {
             resultList = ((IPage<?>) result).getRecords();
         }
 
-        if (resultList != null) {
+        if (resultList != null && resultList.size() > 0) {
             for (Object item : resultList) {
                 decode(item);
             }
