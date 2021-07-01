@@ -8,7 +8,6 @@ import org.springframework.core.annotation.AnnotationUtils;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
@@ -45,6 +44,9 @@ public class SensitiveAesUtil {
      * @since 2021/02/01 13:27
      */
     public static void processOne(Object data, String secretKey, boolean isEncrypted) throws IllegalAccessException {
+        if (data == null) {
+            return;
+        }
 
         // 排除不带 @SensitiveEntity 注解的实体类
         if (null == AnnotationUtils.findAnnotation(data.getClass(), SensitiveEntity.class)) {
